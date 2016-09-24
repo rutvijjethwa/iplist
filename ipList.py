@@ -2,10 +2,10 @@
 import subprocess , re
 from prettytable import PrettyTable as pt
 ipconfigCmd = str(subprocess.check_output("arp -a"))
+#Regex to extract IP address and corresponding Mac address from result of arp command
 ipconfigCmdReg = re.compile(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s+([0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2})')
 outputx = ipconfigCmdReg.findall(ipconfigCmd)
-tempRegS = re.compile(r'\d{3}')
-tempRegE = re.compile(r'255$')
+tempRegS , tempRegE = re.compile(r'\d{3}') , re.compile(r'255$')
 ipListDict = {}
 for i in range(len(outputx)):
     c1 = True if int(tempRegS.search(str(outputx[i][0])).group(0)) < 224 else False
