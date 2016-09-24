@@ -1,8 +1,11 @@
 #!/usr/bin/python3
 from subprocess import check_output as CO
 from re import compile , findall , search
-from prettytable import PrettyTable as pt
-
+import sys
+try:
+    from prettytable import PrettyTable as pt
+except ImportError:
+    sys.exit("MODULE NOT AVAILABLE")
 ipconfigCmd = str(CO("arp -a"))
 #Regex to extract IP address and corresponding Mac address from result of arp command
 ipconfigCmdReg = compile(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s+([0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2})')
