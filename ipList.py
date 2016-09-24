@@ -1,11 +1,13 @@
 #!/usr/bin/python3
-import subprocess , re
+from subprocess import check_output as CO
+from re import compile , findall , search
 from prettytable import PrettyTable as pt
-ipconfigCmd = str(subprocess.check_output("arp -a"))
+
+ipconfigCmd = str(CO("arp -a"))
 #Regex to extract IP address and corresponding Mac address from result of arp command
-ipconfigCmdReg = re.compile(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s+([0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2})')
+ipconfigCmdReg = compile(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s+([0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2})')
 outputx = ipconfigCmdReg.findall(ipconfigCmd)
-tempRegS , tempRegE = re.compile(r'\d{3}') , re.compile(r'255$')
+tempRegS , tempRegE = compile(r'\d{3}') , compile(r'255$')
 ipListDict = {}
 for i in range(len(outputx)):
     c1 = True if int(tempRegS.search(str(outputx[i][0])).group(0)) < 224 else False
