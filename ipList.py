@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 from subprocess import check_output as CO
 from re import compile , findall , search
 import sys
