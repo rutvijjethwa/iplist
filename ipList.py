@@ -2,7 +2,7 @@ from subprocess import check_output as CO
 from re import compile , findall , search
 import sys
 try:
-    from prettytable import PrettyTable as pt
+    from prettytable import PrettyTable as pt #check for module
 except ImportError:
     sys.exit("MODULE NOT AVAILABLE")
 #Regex to extract IP address and corresponding Mac address from result of arp command
